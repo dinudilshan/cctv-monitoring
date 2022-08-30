@@ -10,6 +10,13 @@ app.get("/", function (request, response){
 });
 
 //start the server
-app.listen(8080);
-
-console.log("Something awesome to happen at http://localhost:8080");
+// app.listen(process.env.PORT || 8080, function(){
+//     console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+//   });
+//   server.connection({
+//     port: process.env.PORT || 3000 
+// });
+app.listen(process.env.PORT || 5000 ,function(){
+        console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+      });
+// console.log("Something awesome to happen at http://localhost:8080");
