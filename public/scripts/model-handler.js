@@ -1,14 +1,4 @@
-<div>Real time video analyse Model</div>
-<button type='button' onclick='init()'>Test Model</button>
-<div id='webcam-container'></div>
-<div id='label-container'></div>
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.3/dist/teachablemachine-image.min.js"></script>
-<script type="text/javascript">
-    // More API functions here:
-    // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
 
-    // the link to your model provided by Teachable Machine export panel
     const URL = 'https://teachablemachine.withgoogle.com/models/Hcnbh22C6/';
 
     let model, webcam, labelContainer, maxPredictions;
@@ -77,4 +67,8 @@
             labelContainer.childNodes[i].innerHTML = classPrediction;
         }
     }
-</script>
+
+    function vidOff() {
+        webcam.stop();
+        // await webcam.stop();
+    }
