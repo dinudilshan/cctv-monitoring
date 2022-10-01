@@ -1,3 +1,4 @@
+	
 	var video = document.getElementById('video');
 	var canvas = document.getElementById('canvas'); 
 	var context = canvas.getContext('2d');
@@ -30,7 +31,7 @@
 				model = await tmPose.load(modelURL, metadataURL);
 			}	
 			maxPredictions = model.getTotalClasses();
-            console.log(maxPredictions)
+            // console.log(maxPredictions)
 			result.innerHTML = "";
 			predict();
 		}
@@ -72,9 +73,19 @@
 						maxProbability = prediction[i].probability;
 					}
 				}
+				if(maxClassName=="Class 3"){
+					count=3;
+				}
+				else if( maxClassName=="Class 1"){
+					count=1;
+				}
+				else{
+					count=2;
+				}
 				data += prediction[i].className + ": " + prediction[i].probability.toFixed(2) + "<br>";
 			}
-			result.innerHTML = data + "<br>Max Probability : <br>" + maxClassName + ", " + maxProbability.toFixed(2);		
+			result.innerHTML = data + "<br>Max Probability : <br>" + maxClassName + ", " + count;		
+			// result.innerHTML = data + "<br>Max Probability : <br>" + maxClassName + ", " + maxProbability.toFixed(2);		
 		}
 		else
 			result.innerHTML = "";
@@ -99,3 +110,18 @@
 		canvas.setAttribute("width", video.videoWidth);
 		canvas.setAttribute("height", video.videoHeight);
 	}, false );
+	
+	let count=2;
+	var prevVal = null;
+	var _myInterval = setInterval(function() {
+		if(prevVal == count) {
+			if(count!=2){
+				console.log("abnormal situation by class ", count);
+				sendSMS(count);
+			}
+			
+		} else {
+			// console.log("Value was changed between past 15 second prev: ", prevVal, " New: ", count)
+			prevVal = count;
+		}
+	}, 10000)

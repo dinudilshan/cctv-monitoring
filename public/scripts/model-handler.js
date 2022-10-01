@@ -62,9 +62,22 @@
             prediction = await model.predict(webcam.canvas);
         }
         for (let i = 0; i < maxPredictions; i++) {
+
+            let maxClassName = prediction[i].className;
+            
             const classPrediction =
                 prediction[i].className + ': ' + prediction[i].probability.toFixed(2);
             labelContainer.childNodes[i].innerHTML = classPrediction;
+            
+            if(maxClassName=="Class 3"){
+                count=3;
+            }
+            else if( maxClassName=="Class 1"){
+                count=1;
+            }
+            else{
+                count=2;
+            }
         }
     }
 
@@ -72,3 +85,18 @@
         webcam.stop();
         // await webcam.stop();
     }
+
+    let count=2;
+	var prevVal = null;
+	var _myInterval = setInterval(function() {
+		if(prevVal == count) {
+			if(count!=2){
+				console.log("abnormal situation by class ", count);
+				sendSMS(count);
+			}
+			
+		} else {
+			// console.log("Value was changed between past 15 second prev: ", prevVal, " New: ", count)
+			prevVal = count;
+		}
+	}, 10000)
